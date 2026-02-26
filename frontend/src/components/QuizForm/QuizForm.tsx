@@ -60,7 +60,7 @@ const QuizForm = ({id, onSubmit}: QuizFormProps) => {
 
     const handleQuestionRemove = (index: number) => {
         if (quiz.questions.length === 1) {
-            ToastService.error('Un quiz doit contenir au moins une question');
+            ToastService.error('A quiz must contain at least one question');
             return;
         }
         const questions = quiz.questions;
@@ -73,11 +73,11 @@ const QuizForm = ({id, onSubmit}: QuizFormProps) => {
     }
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault(); // Lorsqu'un formulaire est soumis, le comportement par défaut du navigateur est de recharger la page
+        event.preventDefault(); // When a form is submitted, the default browser behavior is to reload the page
         const errors = validate(quiz);
         if (errors.isNotEmpty()) {
             setQuizErrors(errors);
-            ToastService.error('Quiz Invalid');
+            ToastService.error('Invalid quiz');
             return;
         }
         onSubmit(quiz);

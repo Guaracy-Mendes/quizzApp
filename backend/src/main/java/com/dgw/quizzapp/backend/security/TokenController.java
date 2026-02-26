@@ -20,7 +20,7 @@ public class TokenController {
 
     @GetMapping("/token/refresh")
     public RefreshTokenApiResponse getRefreshToken(@RequestParam(REFRESH_TOKEN) String refreshToken) {
-        var user = repository.findByRefreshToken(refreshToken).orElseThrow(() -> new RefreshTokenException("Refresh token non trouvé"));
+        var user = repository.findByRefreshToken(refreshToken).orElseThrow(() -> new RefreshTokenException("Refresh token not found"));
         if (user.isRefreshTokenExpired()) {
             throw new RefreshTokenException("Refresh token expired");
         }

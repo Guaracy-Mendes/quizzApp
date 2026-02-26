@@ -12,7 +12,7 @@ const AddQuiz = () => {
 
     const handleSubmit = (quiz: Quiz) => {
         HttpClient.post('/quizzes', quiz).then(() => {
-            ToastService.success('Quiz ajouté avec succès');
+            ToastService.success('Quiz added successfully');
             navigate('/admin/quiz');
         });
     }

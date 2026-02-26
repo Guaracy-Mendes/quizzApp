@@ -13,7 +13,7 @@ const UpdateQuiz = () => {
 
     const handleSubmit = (quiz: Quiz) => {
         HttpClient.put(`/quizzes/${id}`, quiz).then(() => {
-            ToastService.success('Quiz mise à jour avec succès');
+            ToastService.success('Quiz updated successfully');
             navigate('/admin/quiz');
         });
     }

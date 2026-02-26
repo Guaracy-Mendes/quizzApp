@@ -15,7 +15,7 @@ const ImportQuiz = () => {
     const [error, setError] = useState("");
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault(); // Lorsqu'un formulaire est soumis, le comportement par défaut du navigateur est de recharger la page
+        event.preventDefault(); // When a form is submitted, the default browser behavior is to reload the page
         if (!file) {
             setError(MANDATORY);
             return;

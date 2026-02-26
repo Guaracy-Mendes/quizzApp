@@ -55,17 +55,17 @@ const Profile = () => {
                         </Link>
                         <Link className={styles.menuItem} to="/admin/users">
                             <LuUsers className={styles.icon} />
-                            Utilisateurs
+                            Users
                         </Link>
                     </>
                 }
                 <Link className={styles.menuItem} to="/history">
                     <LuHistory className={styles.icon} />
-                    Historique
+                    History
                 </Link>
                 <div className={styles.menuItem} onClick={() => setOpenLogoutModal(true)}>
                     <LuLogOut className={styles.icon} />
-                    Déconnexion
+                    {LOGOUT_MODAL_BUTTON_LABEL}
                 </div>
             </div>
             <ConfirmModal
