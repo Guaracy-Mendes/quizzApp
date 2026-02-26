@@ -35,3 +35,6 @@ build/
 *.pem
 **/node_modules
 aws
+
+backend/src/main/resources/application-local.yml
+
