@@ -1,0 +1,11 @@
+SPRING_FLYWAY_URL: jdbc:postgresql://localhost:5432/quizzapp
+DATASOURCE_USERNAME: quizzapp
+DATASOURCE_PASSWORD: quizzapp
+FRONTEND_BASE_URL: http://localhost:3000
+BACKEND_BASE_URL: http://localhost:8080/api
+GITHUB_CLIENT_ID: <github-client-id>
+GITHUB_CLIENT_SECRET: <github-client-secret>
+GOOGLE_CLIENT_ID: <google-client-id>
+GOOGLE_CLIENT_SECRET: <google-client-secret>
+JWT_SECRET: <jwt-secret>
+ADMIN_EMAIL: <admin-email>
