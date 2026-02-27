@@ -2,8 +2,11 @@ import axios from "axios";
 import ToastService from "./ToastService";
 import UserService from "./UserService";
 
+
+const apiPath = import.meta.env.VITE_API_PATH_VERSION;
+
 const Axios = axios.create({
-  baseURL: '/api/v1',
+  baseURL: apiPath,
 });
 
 class HttpClient {
