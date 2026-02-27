@@ -15,6 +15,10 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Set lowercase repository name
+        run: |
+          echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
+
       - name: Get Release Version
         uses: thenativeweb/get-next-version@main # https://github.com/thenativeweb/get-next-version
         id: release_version
@@ -26,8 +30,8 @@ jobs:
 
       - name: Build Docker Images
         run: |
-          docker build -t ghcr.io/${{ github.actor }}/quizzapp-backend:${{ steps.release_version.outputs.version }} -f ./backend/Dockerfile ./backend
-          docker build -t ghcr.io/${{ github.actor }}/quizzapp-frontend:${{ steps.release_version.outputs.version }} -f ./frontend/Dockerfile ./frontend
+          docker build -t ghcr.io/${{ env.REPO }}/quizzapp-backend:${{ steps.release_version.outputs.version }} -f ./backend/Dockerfile ./backend
+          docker build -t ghcr.io/${{ env.REPO }}/quizzapp-frontend:${{ steps.release_version.outputs.version }} -f ./frontend/Dockerfile ./frontend
 
       - name: Login to GitHub Container Registry (GHCR)
         uses: docker/login-action@v3 # https://github.com/docker/login-action
@@ -52,4 +56,3 @@ jobs:
         run: |
           git tag ${{ steps.release_version.outputs.version }}
           git push -u origin ${{ steps.release_version.outputs.version }}
-
