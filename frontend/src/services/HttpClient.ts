@@ -3,7 +3,7 @@ import ToastService from "./ToastService";
 import UserService from "./UserService";
 
 const Axios = axios.create({
-  baseURL: '/api',
+  baseURL: '/api/v1',
 });
 
 class HttpClient {

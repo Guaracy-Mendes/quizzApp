@@ -15,7 +15,7 @@ const Banner = () => {
                 <p>{BANNER_SUBMESSAGE}</p>
                 <Button onClick={scrollViewHeight}>{BANNER_BUTTON}</Button>
             </div>
-            <img src="/banner.svg" alt="" />
+            <img src="/banner.jpg" alt="" />
         </div>
     );
 }

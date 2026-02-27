@@ -11,7 +11,7 @@ const Navbar = () => {
     return (
         <nav className={styles.navbar}>
             <Link className={styles.logo} to="/">
-                <img src="/logo.svg" alt="Logo" />
+                <img src="/logo.png" alt="Logo" />
             </Link>
             <div className={styles.right}>
                 { User.isNotLoggedIn(user) ? <Login style='icon' /> : <Profile /> }

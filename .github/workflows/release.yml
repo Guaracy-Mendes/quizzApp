@@ -1,0 +1,55 @@
+name: release
+
+on: workflow_dispatch # To trigger the workflow manually (See https://docs.github.com/fr/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#workflow_dispatch)
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get Release Version
+        uses: thenativeweb/get-next-version@main # https://github.com/thenativeweb/get-next-version
+        id: release_version
+
+      - name: Update Project Version
+        run: |
+          mvn -f backend versions:set -DgenerateBackupPoms=false -DnewVersion=${{ steps.release_version.outputs.version }}
+          npm --prefix frontend version ${{ steps.release_version.outputs.version }} --git-tag-version false --allow-same-version
+
+      - name: Build Docker Images
+        run: |
+          docker build -t ghcr.io/${{ github.actor }}/quizzapp-backend:${{ steps.release_version.outputs.version }} -f ./backend/Dockerfile ./backend
+          docker build -t ghcr.io/${{ github.actor }}/quizzapp-frontend:${{ steps.release_version.outputs.version }} -f ./frontend/Dockerfile ./frontend
+
+      - name: Login to GitHub Container Registry (GHCR)
+        uses: docker/login-action@v3 # https://github.com/docker/login-action
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }} # Doc: The username of the user that triggered the initial workflow run (See https://docs.github.com/fr/actions/writing-workflows/choosing-what-your-workflow-does/accessing-contextual-information-about-workflow-runs#github-context)
+          password: ${{ secrets.GITHUB_TOKEN }} # Doc: Automatically created token for each workflow run (See https://docs.github.com/fr/actions/writing-workflows/choosing-what-your-workflow-does/accessing-contextual-information-about-workflow-runs#secrets-context)
+
+      - name: Push Docker Images
+        run: |
+          docker push ghcr.io/${{ github.actor }}/quizzapp-backend:${{ steps.release_version.outputs.version }}
+          docker push ghcr.io/${{ github.actor }}/quizzapp-frontend:${{ steps.release_version.outputs.version }}
+
+      - name: Git Push Changes
+        run: |
+          git config user.name ${{ github.actor }}
+          git config user.email ${{ github.actor }}@github.actions
+          git commit -am "Release ${{ steps.release_version.outputs.version }}"
+          git push
+
+      - name: Git Tag
+        run: |
+          git tag ${{ steps.release_version.outputs.version }}
+          git push -u origin ${{ steps.release_version.outputs.version }}
+

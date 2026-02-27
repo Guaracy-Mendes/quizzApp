@@ -1,5 +1,17 @@
-{"properties": [{
-  "name": "app.jwt.secret",
-  "type": "java.lang.String",
-  "description": "A description for 'app.jwt.secret'"
-}]}
+{"properties": [
+  {
+    "name": "app.jwt.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'app.jwt.secret'"
+  },
+  {
+    "name": "app.oauth2.redirect-uri",
+    "type": "java.lang.String",
+    "description": "A description for 'app.oauth2.redirect-uri'"
+  },
+  {
+    "name": "app.admin.email",
+    "type": "java.lang.String",
+    "description": "A description for 'app.admin.email'"
+  }
+]}
