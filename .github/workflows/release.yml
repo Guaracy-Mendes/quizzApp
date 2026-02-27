@@ -42,8 +42,8 @@ jobs:
 
       - name: Push Docker Images
         run: |
-          docker push ghcr.io/${{ github.actor }}/quizzapp-backend:${{ steps.release_version.outputs.version }}
-          docker push ghcr.io/${{ github.actor }}/quizzapp-frontend:${{ steps.release_version.outputs.version }}
+          docker push ghcr.io/${{ env.REPO }}/quizzapp-backend:${{ steps.release_version.outputs.version }}
+          docker push ghcr.io/${{ env.REPO }}/quizzapp-frontend:${{ steps.release_version.outputs.version }}
 
       - name: Git Push Changes
         run: |
@@ -56,3 +56,4 @@ jobs:
         run: |
           git tag ${{ steps.release_version.outputs.version }}
           git push -u origin ${{ steps.release_version.outputs.version }}
+
